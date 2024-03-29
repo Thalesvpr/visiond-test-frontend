@@ -1,48 +1,30 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import ButtonComponent from "../components/Button";
 import AutoTextarea from "../components/TextArea";
 import OptionsComponent from "../components/Options";
-import { useNavigate } from "react-router-dom";
-import { postForms } from "../../services/FormService";
+import { useNavigate, useParams } from "react-router-dom";
+import { getFormById, postForms } from "../../services/FormService";
+import { Form, Question, QuestionType } from "./NewForm";
 
 
-export enum QuestionType {
-    Text = 0,
-    MultipleChoice = 1,
-  }
-  
- export interface Question {
-    type: QuestionType;
-    title: string;
-    description?: string;
-    isRequired?: boolean;
-    options?: string[];
-  }
 
-  export interface Form {
-  title: string;
-  description?: string;
-  questions: Question[];
-  isActive?: boolean;
-  createdBy?: string;
-}
 
-const NewForm: React.FC = () => {
-    // const [newOption, setNewOption] = useState("");
+const EditForm: React.FC = () => {
+  const { id } = useParams();
     const [newOptions, setNewOptions] = useState<string[]>([]);
-  const [formData, setFormData] = useState<Form>({
-    title: "",
-    questions: [
-    //   {
-    //     type: 1,
-    //     title: "",
-    //     description: "",
-    //     isRequired: false,
-    //     options: []
-    //   },
-    ],
-  });
+    const [formData, setFormData] = useState<Form>({
+      title: "",
+      questions: [
+      ],
+    });
+  useEffect(() => {
+    const fetchforms = async () => {
+      const response = await getFormById(id!);
+      setFormData(response.data);
+    };
 
+    fetchforms();
+  }, []);
   const navigate = useNavigate()
 const onSubmit = async () => {
   await postForms(formData)
@@ -150,7 +132,7 @@ const handleNewOptionChange = (index: number, e: React.ChangeEvent<HTMLInputElem
         
       <div className="flex flex-col justify-center items-center mt-4 mb-14">
         
-            <h1 className="text-2xl"> Novo Formulario </h1>
+            <h1 className="text-2xl"> Editar Formulario </h1>
       <div className="w-full">
         <input
                 id="title"
@@ -243,4 +225,5 @@ const handleNewOptionChange = (index: number, e: React.ChangeEvent<HTMLInputElem
   );
 };
 
-export default NewForm;
+export default EditForm;
+

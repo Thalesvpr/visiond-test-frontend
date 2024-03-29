@@ -11,6 +11,7 @@ import MyFormsPage from "./pages/MyFormsPage";
 import App from "./App";
 import RegisterPage from "./pages/RegisterPage";
 import NewForm from "./pages/NewForm";
+import EditForm from "./pages/EditForm";
 
 
 
@@ -29,6 +30,10 @@ const router = createBrowserRouter([
         path: "/new",
         element: <PrivateRoute element={<NewForm/>}/>
 
+      },
+      {
+        path: "/edit/:id",
+        element: <PrivateRoute element={<EditForm/>}/>
       }
     ]
   },

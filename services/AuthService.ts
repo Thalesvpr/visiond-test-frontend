@@ -1,5 +1,5 @@
 import axios, { AxiosRequestConfig } from 'axios';
-const API_URL = import.meta.env.VITE_REACT_API_URL;
+const API_URL = import.meta.env.VITE_REACT_API_URL || 'http://localhost:3000';
 
  export const login = async (email: string, password: string): Promise<void> => {
   const response = await axios.post(`${API_URL}/user/login`, {
@@ -10,8 +10,6 @@ const API_URL = import.meta.env.VITE_REACT_API_URL;
   const token = response.data.token;
   saveToken(token);
   const userId = response.data.userId;
-  console.log('userId ---------')
-  console.log(userId)
 
   const userName = response.data.name;
   saveUserProprets(userId, userName);

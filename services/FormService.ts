@@ -3,7 +3,7 @@ import {getToken, getUserId } from './AuthService';
 import { Form } from '../src/pages/NewForm';
 import { Answers } from '../src/pages/AnswerForm';
 
-const API_URL = import.meta.env.VITE_REACT_API_URL;
+const API_URL = import.meta.env.VITE_REACT_API_URL || 'http://localhost:3000';
 
 const axiosInstance = axios.create({
   baseURL: API_URL,

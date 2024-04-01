@@ -54,3 +54,11 @@ Se o projeto iniciar sem erros e você conseguir acessar o aplicativo no navegad
 - **Problema**: Dependências não encontradas ou problemas ao instalar as dependências.
   - **Solução**: Verifique se você está no diretório correto do projeto e tente executar `npm install` ou `yarn` novamente.
 
+
+
+- [Rotas](/docs/Rotas.md)
+- [Estrutura do Projeto](/docs/EstruturaDoProjeto.md)
+- [Componentes](/docs/Componentes.md)
+- [Serviços](/docs/Servicos.md)
+- [Páginas](/docs/Paginas.md)
+

@@ -27,10 +27,10 @@ Este projeto visa desenvolver um sistema de formulários dinâmicos permitindo a
 2. **Instalação**:
    ```bash
    # Clone o repositório
-   git clone [URL do repositório]
+   git clone https://github.com/Thalesvpr/visiond-test-frontend
 
    # Navegue até o diretório do projeto
-   cd [Nome do Diretório do Projeto]
+   cd visiond-test-frontend
 
    # Instale as dependências
    npm install

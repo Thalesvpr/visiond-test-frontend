@@ -1,9 +1,11 @@
 import React, { useState } from "react";
-import ButtonComponent from "../components/Button";
+import {ButtonAction, ButtonComponent, IconButtonAction} from "../components/Button";
 import AutoTextarea from "../components/TextArea";
 import OptionsComponent from "../components/Options";
 import { useNavigate } from "react-router-dom";
 import { postForms } from "../../services/FormService";
+import MiniMenu from "../components/MiniMenu";
+import { FaPlus, FaXmark } from "react-icons/fa6";
 
 
 export enum QuestionType {
@@ -12,6 +14,7 @@ export enum QuestionType {
   }
   
  export interface Question {
+  _id?: string;
     type: QuestionType;
     title: string;
     description?: string;
@@ -20,11 +23,12 @@ export enum QuestionType {
   }
 
   export interface Form {
-  title: string;
-  description?: string;
-  questions: Question[];
-  isActive?: boolean;
-  createdBy?: string;
+    _id?: string
+    title: string;
+    description?: string;
+    questions: Question[];
+    isActive?: boolean;
+    createdBy?: string;
 }
 
 const NewForm: React.FC = () => {
@@ -167,7 +171,7 @@ const handleNewOptionChange = (index: number, e: React.ChangeEvent<HTMLInputElem
 
         {formData.questions.map((question, index) => (
           <div key={index} className="bg-trras shadow-md rounded-md p-4 w-full mb-20">
-            <div className=" flex justify-between">
+            <div className=" flex justify-between items-center">
             <input
               type="text"
               className="border-none bg-transparent rounded-md p-2 text-lg focus:outline-none"
@@ -175,7 +179,10 @@ const handleNewOptionChange = (index: number, e: React.ChangeEvent<HTMLInputElem
               onChange={(e) =>
                 handleQuestionChange(index, "title", e.target.value)
               }
-            /><ButtonComponent onClick={() => deleteQuestion(index)}>Deletar Questão</ButtonComponent>
+            />
+            <IconButtonAction onClick={() => deleteQuestion(index)}>
+              <FaXmark/>
+              </IconButtonAction>
             </div>
             <AutoTextarea
               placehoder={'"Texto da questão..."'}
@@ -196,7 +203,7 @@ const handleNewOptionChange = (index: number, e: React.ChangeEvent<HTMLInputElem
                     deleteOption(index, optionIndex)
                   }
                 />
-                <div className="flex">
+                <div className="flex items-center">
                   <input
                     type="text"
                     placeholder="Nova opção"
@@ -206,11 +213,11 @@ const handleNewOptionChange = (index: number, e: React.ChangeEvent<HTMLInputElem
                     onChange={(e) => handleNewOptionChange(index, e)}
 
                   />
-                  <ButtonComponent
+                  <IconButtonAction
                     onClick={() => addOption(index, newOptions[index])}
                   >
-                    + Opção
-                  </ButtonComponent>
+                    <FaPlus/>
+                  </IconButtonAction>
                 </div>
               </>
             )}
@@ -229,14 +236,14 @@ const handleNewOptionChange = (index: number, e: React.ChangeEvent<HTMLInputElem
           </div>
         ))}
         <hr/>
-            <div className="fixed bottom-0 right-0 p-4 flex flex-col justify-center">
-            <ButtonComponent onClick={() => addQuestion(QuestionType.MultipleChoice)}>Adcionar questão multipla escolha</ButtonComponent>
+            <div className="">
+                <MiniMenu>
+                <ButtonAction onClick={() => addQuestion(QuestionType.MultipleChoice)}>Adcionar questão multipla escolha</ButtonAction>
         <div className=" mb-4"/>
-        <ButtonComponent onClick={() => addQuestion(QuestionType.Text)}>Adcionar questão discursiva</ButtonComponent>
+        <ButtonAction onClick={() => addQuestion(QuestionType.Text)}>Adcionar questão discursiva</ButtonAction>
         <div className=" mb-4"/>
         <ButtonComponent onClick={onSubmit}>Concluir</ButtonComponent>
-
-        <div className=" mb-4"/>
+                </MiniMenu>
             </div>
       </div>
     </div>

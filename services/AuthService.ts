@@ -1,4 +1,4 @@
-import axios from 'axios';
+import axios, { AxiosRequestConfig } from 'axios';
 const API_URL = import.meta.env.VITE_REACT_API_URL;
 
  export const login = async (email: string, password: string): Promise<void> => {
@@ -33,6 +33,9 @@ export const isAuthenticated = (): boolean  => {
   export const getUserId = (): string | null => {
     return localStorage.getItem('userId');
   };
+  export const getToken = (): string | null => {
+    return localStorage.getItem('authToken');
+  };
 
   export const getUserName = (): string | null => {
     return localStorage.getItem('userName');
@@ -41,3 +44,4 @@ export const logout = (): void => {
     localStorage.removeItem('authToken');
     console.log("logout")
 }
+

@@ -1,10 +1,11 @@
 import React from "react";
+import { FaXmark } from "react-icons/fa6";
 
 interface Props {
     data: string[] | undefined;
     selectedOption?: string | undefined;
     onChange: (value: string) => void;
-    onDelete:(index: number) => void;
+    onDelete?:(index: number) => void;
 }
 
 const OptionsComponent: React.FC<Props> = ({ data, selectedOption, onChange, onDelete}) => {
@@ -13,7 +14,7 @@ const OptionsComponent: React.FC<Props> = ({ data, selectedOption, onChange, onD
     };
 
     const handleOnDelete = (index: number) => {
-        onDelete(index);
+        onDelete!(index);
     };
 
     return (
@@ -29,9 +30,10 @@ const OptionsComponent: React.FC<Props> = ({ data, selectedOption, onChange, onD
                         onChange={() => handleOptionChange(option)}
                     />
                     <p>{option}</p>
-                    <button onClick={() => handleOnDelete(index)} className="bg-zinc-300 hover:bg-zinc-400 text-zinc-700 font-normal px-3 ml-4 rounded-full">
-                        x
-                    </button>
+                    { onDelete &&
+                        <button onClick={() => handleOnDelete(index)} className=" text-zinc-300 font-normal p-1 ml-4 rounded-full">
+                    <FaXmark/>
+                    </button>}
                 </li>
             ))}
         </ul>

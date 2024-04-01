@@ -10,7 +10,6 @@ const RegisterPage: React.FC = () => {
     const navigate = useNavigate()
     const {register, handleSubmit, formState: {errors}, watch } = useForm()
   const onSubmit = async (data: any) => {
-
     await registerUser(data.name, data.email, data.password)
     navigate('/login')
   };

@@ -1,10 +1,13 @@
 import React, { useEffect, useState } from "react";
-import ButtonComponent from "../components/Button";
 import AutoTextarea from "../components/TextArea";
 import OptionsComponent from "../components/Options";
 import { useNavigate, useParams } from "react-router-dom";
-import { getFormById, postForms } from "../../services/FormService";
+import { getFormById, updateForm } from "../../services/FormService";
 import { Form, Question, QuestionType } from "./NewForm";
+import { ButtonAction, ButtonComponent, IconButtonAction } from "../components/Button";
+import MiniMenu from "../components/MiniMenu";
+import { FaPlus, FaXmark } from "react-icons/fa6";
+import PulsingDot from "../components/PulsingDot";
 
 
 
@@ -13,21 +16,31 @@ const EditForm: React.FC = () => {
   const { id } = useParams();
     const [newOptions, setNewOptions] = useState<string[]>([]);
     const [formData, setFormData] = useState<Form>({
+      _id: "",
       title: "",
       questions: [
       ],
     });
-  useEffect(() => {
-    const fetchforms = async () => {
+
+const [isLoading, setIsLoading] = useState(true);
+
+useEffect(() => {
+  const fetchForms = async () => {
+    try {
       const response = await getFormById(id!);
       setFormData(response.data);
-    };
+      setIsLoading(false);
+    } catch (error) {
+      alert(error)
+    }
+  };
 
-    fetchforms();
-  }, []);
+  fetchForms();
+}, [id]);
+
   const navigate = useNavigate()
 const onSubmit = async () => {
-  await postForms(formData)
+  await updateForm(formData)
   navigate('/forms')
 };
 
@@ -39,6 +52,15 @@ const onSubmit = async () => {
       title: newTitle
     }));
   };
+
+  const handleIsActiveToggle = () => {
+    const isActive = !formData.isActive
+    setFormData(prevFormData => ({
+      ...prevFormData,
+      isActive: isActive
+    }));
+  };
+
 
   const handleDescriptionChange = (value: string) => {
     setFormData(prevFormData => ({
@@ -126,41 +148,57 @@ const handleNewOptionChange = (index: number, e: React.ChangeEvent<HTMLInputElem
   });
 };
 
+return (isLoading ? (
 
-  return (
+  <h1>Carregando...</h1>
+  )
+
+ :
+   (
     <div className="container mx-auto">
+
         
       <div className="flex flex-col justify-center items-center mt-4 mb-14">
         
             <h1 className="text-2xl"> Editar Formulario </h1>
+      <div className=" flex items-center w-full">
+      <PulsingDot active={formData.isActive!}/> 
+      <div className=" w-4"/>
+        <ButtonAction onClick={handleIsActiveToggle}>{formData.isActive? "desativar" : " ativar"}</ButtonAction>
+      </div>
       <div className="w-full">
         <input
                 id="title"
                 type="text"
-                className={" border-none bg-transparent rounded-md p-2 text-2xl focus:outline-none"}
+                className={" border-none bg-transparent rounded-md p-4 text-2xl focus:outline-none"}
                 placeholder='"Titulo"'
                 onChange={handleTitleChange}
+                value={formData.title}
                 
               />
-        <AutoTextarea placehoder={'"Descrição do formulario..."'} onBlur={ (value) => {
+        <AutoTextarea value={formData.description} placehoder={'"Descrição do formulario..."'} onBlur={ (value) => {
                     handleDescriptionChange(value)
-                 } }/>
+                 }
+                 
+                 }/>
         </div>
 
         {formData.questions.map((question, index) => (
           <div key={index} className="bg-trras shadow-md rounded-md p-4 w-full mb-20">
-            <div className=" flex justify-between">
+            <div className=" flex justify-between items-center">
             <input
               type="text"
               className="border-none bg-transparent rounded-md p-2 text-lg focus:outline-none"
               placeholder={`"Questão ${index + 1}"`}
+              value={question.title}
               onChange={(e) =>
                 handleQuestionChange(index, "title", e.target.value)
               }
-            /><ButtonComponent onClick={() => deleteQuestion(index)}>Deletar Questão</ButtonComponent>
+            /><IconButtonAction onClick={() => deleteQuestion(index)}><FaXmark/></IconButtonAction>
             </div>
             <AutoTextarea
               placehoder={'"Texto da questão..."'}
+              value={question.description}
               onBlur={(value: string) => {
                 handleQuestionChange(index, "description", value);
               }}
@@ -178,7 +216,7 @@ const handleNewOptionChange = (index: number, e: React.ChangeEvent<HTMLInputElem
                     deleteOption(index, optionIndex)
                   }
                 />
-                <div className="flex">
+                <div className="flex items-center">
                   <input
                     type="text"
                     placeholder="Nova opção"
@@ -188,16 +226,16 @@ const handleNewOptionChange = (index: number, e: React.ChangeEvent<HTMLInputElem
                     onChange={(e) => handleNewOptionChange(index, e)}
 
                   />
-                  <ButtonComponent
+                  <IconButtonAction
                     onClick={() => addOption(index, newOptions[index])}
                   >
-                    + Opção
-                  </ButtonComponent>
+                    <FaPlus/>
+                  </IconButtonAction>
                 </div>
               </>
             )}
 
-            {/* Checkbox for 'isRequired' */}
+            
             <div className="flex items-center mt-4">
               <p className="text-gray-500 mr-4">Obrigatório:</p>
               <input
@@ -211,19 +249,18 @@ const handleNewOptionChange = (index: number, e: React.ChangeEvent<HTMLInputElem
           </div>
         ))}
         <hr/>
-            <div className="fixed bottom-0 right-0 p-4 flex flex-col justify-center">
-            <ButtonComponent onClick={() => addQuestion(QuestionType.MultipleChoice)}>Adcionar questão multipla escolha</ButtonComponent>
+        <div className="">
+                <MiniMenu>
+                <ButtonAction onClick={() => addQuestion(QuestionType.MultipleChoice)}>Adcionar questão multipla escolha</ButtonAction>
         <div className=" mb-4"/>
-        <ButtonComponent onClick={() => addQuestion(QuestionType.Text)}>Adcionar questão discursiva</ButtonComponent>
+        <ButtonAction onClick={() => addQuestion(QuestionType.Text)}>Adcionar questão discursiva</ButtonAction>
         <div className=" mb-4"/>
         <ButtonComponent onClick={onSubmit}>Concluir</ButtonComponent>
-
-        <div className=" mb-4"/>
+                </MiniMenu>
             </div>
       </div>
     </div>
-  );
+  ))
 };
-
 export default EditForm;
 

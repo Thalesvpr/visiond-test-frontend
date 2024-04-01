@@ -1,7 +1,7 @@
 import React from "react";
 import { useNavigate } from "react-router-dom";
 import { logout } from "../../services/AuthService";
-import ButtonComponent from "./Button";
+import {ButtonAction} from "./Button";
 
 const NavBar: React.FC = () => {
     const navigate = useNavigate();
@@ -13,7 +13,7 @@ const NavBar: React.FC = () => {
     <nav className=" shadow-sm h-16 flex items-center justify-between px-4">
       <h1 className="text-black font-semibold text-xl">Form Maker</h1>
 
-      <ButtonComponent onClick={handleLogout}>Sair</ButtonComponent>
+      <ButtonAction onClick={handleLogout}>Sair</ButtonAction>
     </nav>
   );
 };

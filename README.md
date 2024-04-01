@@ -1,30 +1,57 @@
-# React + TypeScript + Vite
 
-This template provides a minimal setup to get React working in Vite with HMR and some ESLint rules.
+# Sistema de Formulários Dinâmicos
 
-Currently, two official plugins are available:
+## Sobre o Projeto
 
-- [@vitejs/plugin-react](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react/README.md) uses [Babel](https://babeljs.io/) for Fast Refresh
-- [@vitejs/plugin-react-swc](https://github.com/vitejs/vite-plugin-react-swc) uses [SWC](https://swc.rs/) for Fast Refresh
+Este projeto visa desenvolver um sistema de formulários dinâmicos permitindo aos usuários visualizar, criar, editar, responder a formulários e armazenar as respostas em uma base de dados. O sistema é construído utilizando ReactJS, com Tailwind CSS para estilização e NodeJS no backend.
 
-## Expanding the ESLint configuration
+## Requisitos Funcionais
 
-If you are developing a production application, we recommend updating the configuration to enable type aware lint rules:
+- **Visualização de Formulários**: Usuários podem visualizar uma lista de formulários existentes.
+- **Criação de Formulários**: Facilita a criação de novos formulários, solicitando informações como nome, descrição e perguntas.
+- **Edição de Formulários**: Permite aos usuários editar formulários existentes e adicionar perguntas.
+- **Tipos de Perguntas**: Suporta perguntas de múltipla escolha, escolha única e texto.
+- **Responder Formulários**: Usuários podem responder a formulários, armazenando as respostas numa base de dados.
+- **Armazenamento de Respostas**: As respostas são armazenadas de forma segura para análise e referência futura.
 
-- Configure the top-level `parserOptions` property like this:
+## Tecnologias Utilizadas
 
-```js
-export default {
-  // other rules...
-  parserOptions: {
-    ecmaVersion: 'latest',
-    sourceType: 'module',
-    project: ['./tsconfig.json', './tsconfig.node.json'],
-    tsconfigRootDir: __dirname,
-  },
-}
-```
+- **ReactJS** com TypeScrypt
+- **Tailwind** CSS
 
-- Replace `plugin:@typescript-eslint/recommended` to `plugin:@typescript-eslint/recommended-type-checked` or `plugin:@typescript-eslint/strict-type-checked`
-- Optionally add `plugin:@typescript-eslint/stylistic-type-checked`
-- Install [eslint-plugin-react](https://github.com/jsx-eslint/eslint-plugin-react) and add `plugin:react/recommended` & `plugin:react/jsx-runtime` to the `extends` list
+
+## Começando
+
+1. **Pré-requisitos**: Certifique-se de ter Node.js e npm/yarn instalados em sua máquina.
+
+2. **Instalação**:
+   ```bash
+   # Clone o repositório
+   git clone [URL do repositório]
+
+   # Navegue até o diretório do projeto
+   cd [Nome do Diretório do Projeto]
+
+   # Instale as dependências
+   npm install
+   ```
+
+3. **Executando o Projeto**:
+   ```bash
+   npm start
+   ```
+
+## Documentação
+
+Para mais detalhes sobre a configuração, estrutura do projeto, e guias de uso, por favor consulte os seguintes documentos:
+
+- [Configuração do Ambiente](/docs/ConfiguracaoDeAmbiente.md)
+- [Rotas](/docs/Rotas.md)
+- [Estrutura do Projeto](/docs/EstruturaDoProjeto.md)
+- [Componentes](/docs/Componentes.md)
+- [Serviços](/docs/Servicos.md)
+- [Páginas](/docs/Paginas.md)
+- [Desenvolvimento e Contribuição](/docs/DesenvolvimentoContribuicao.md)
+
+
+

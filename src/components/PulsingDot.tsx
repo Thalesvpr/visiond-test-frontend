@@ -7,7 +7,7 @@ interface Props {
 const PulsingDot: React.FC<Props> = ({ active }) => {
   return (
     <div className="relative">
-      <div className={`w-3 h-3 rounded-full ${active ? 'bg-green-500 bg-  animate-pulse bg-' : 'bg-orange-500'}`}></div>
+      <div className={`w-3 h-3 rounded-full ${active ? 'bg-green-600 bg-  animate-pulse bg-' : 'bg-zinc-300'}`}></div>
     </div>
   );
 };

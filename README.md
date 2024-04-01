@@ -38,7 +38,7 @@ Este projeto visa desenvolver um sistema de formulários dinâmicos permitindo a
 
 3. **Executando o Projeto**:
    ```bash
-   npm start
+   npm run start
    ```
 
 ## Documentação

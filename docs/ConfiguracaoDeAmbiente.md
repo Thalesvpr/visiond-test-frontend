@@ -35,14 +35,6 @@ npm install
 yarn
 ```
 
-### Configurando Variáveis de Ambiente
-
-Crie um arquivo `.env` na raiz do projeto e adicione as seguintes variáveis:
-```env
-REACT_APP_API_URL=[URL da API]
-# Outras variáveis de ambiente necessárias
-```
-
 ## Verificando a Instalação
 
 Para verificar se o ambiente foi configurado corretamente, tente executar o projeto localmente:
